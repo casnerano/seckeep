@@ -1,0 +1,38 @@
+name: unit tests
+
+on:
+  push:
+    paths-ignore:
+      - "cmd/**"
+      - "configs/**"
+      - "migrations/**"
+      - "**/mock"
+      - "internal/client/app.go"
+      - "internal/server/app.go"
+      - "internal/server/http/router.go"
+      - "internal/server/http/server.go"
+  pull_request:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+
+      - name: Verify dependencies
+        run: go mod verify
+
+      - name: Test With Coverage
+        run: go test -coverprofile=coverage.txt -covermode=atomic ./...
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

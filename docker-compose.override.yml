@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  postgres:
+    ports:
+      - '5432:5432'
+
+  migrate:
+    image: migrate/migrate:4
+    volumes:
+      - ./migrations/postgres:/migrations
+    command: [ "-path", "/migrations", "-database",  "postgres://user:password@postgres/seckeep?sslmode=disable", "up" ]
+    depends_on:
+      postgres:
+          condition: service_healthy
+    networks:
+      - internal
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=sec@keep.loc
+      - PGADMIN_DEFAULT_PASSWORD=password
+    ports:
+      - '9090:80'
+    networks:
+      - internal
