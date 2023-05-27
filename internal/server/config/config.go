@@ -11,7 +11,8 @@ type Config struct {
 		} `yaml:"authenticator"`
 	} `yaml:"app"`
 	Server struct {
-		Addr string `yaml:"addr"`
+		Addr        string `yaml:"addr"`
+		EnableHTTPS bool   `yaml:"enable_https"`
 	} `yaml:"server"`
 	Database struct {
 		DSN string `yaml:"dsn"`

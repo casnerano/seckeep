@@ -4,39 +4,60 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/casnerano/seckeep/pkg/log"
 	"github.com/go-chi/chi/v5"
+	"golang.org/x/crypto/acme/autocert"
 )
 
 // Server структура сервера.
 type Server struct {
-	httpServer *http.Server
-	logger     *log.Logger
+	httpServer  *http.Server
+	enableHTTPS bool
+	logger      *log.Logger
 }
 
 // NewServer конструктор.
-func NewServer(address string, router *chi.Mux, logger *log.Logger) *Server {
-	return &Server{
+func NewServer(address string, enableHTTPS bool, router *chi.Mux, logger *log.Logger) *Server {
+	server := Server{
 		httpServer: &http.Server{
 			Addr:    address,
 			Handler: router,
 		},
-		logger: logger,
+		enableHTTPS: enableHTTPS,
+		logger:      logger,
 	}
+
+	if enableHTTPS {
+		certManager := &autocert.Manager{
+			Cache:      autocert.DirCache("./var"),
+			Prompt:     autocert.AcceptTOS,
+			HostPolicy: autocert.HostWhitelist(),
+		}
+		server.httpServer.TLSConfig = certManager.TLSConfig()
+	}
+
+	return &server
 }
 
 // Start метод стартует сервер и ожидает завершения контекста.
 func (s *Server) Start(ctx context.Context) error {
 	go func() {
-		if err := s.httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			s.logger.Alert(
-				fmt.Sprintf("Ошибка запуска сервера по адресу %s", s.httpServer.Addr),
-				err,
-			)
-			os.Exit(1)
+		if s.enableHTTPS {
+			if err := s.httpServer.ListenAndServeTLS("", ""); err != nil && err != http.ErrServerClosed {
+				s.logger.Alert(
+					fmt.Sprintf("Ошибка запуска сервера по адресу %s", s.httpServer.Addr),
+					err,
+				)
+			}
+		} else {
+			if err := s.httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+				s.logger.Alert(
+					fmt.Sprintf("Ошибка запуска сервера по адресу %s", s.httpServer.Addr),
+					err,
+				)
+			}
 		}
 	}()
 

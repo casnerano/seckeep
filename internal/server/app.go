@@ -74,7 +74,12 @@ func NewApp() (*App, error) {
 	router.InitAccountHandler(accountService)
 	router.InitDataHandler(data.New(dataRepository))
 
-	app.server = http.NewServer(app.config.Server.Addr, router.GetChiMux(), app.logger)
+	app.server = http.NewServer(
+		app.config.Server.Addr,
+		app.config.Server.EnableHTTPS,
+		router.GetChiMux(),
+		app.logger,
+	)
 
 	return &app, nil
 }
