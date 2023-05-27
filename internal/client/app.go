@@ -4,7 +4,6 @@ package client
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/casnerano/seckeep/internal/client/command"
 	"github.com/casnerano/seckeep/internal/client/config"
@@ -63,11 +62,13 @@ func NewApp() (*App, error) {
 }
 
 // Run метод запуска приложения.
-func (a *App) Run() {
+func (a *App) Run() error {
 	if err := a.rootCmd.Execute(); err != nil {
 		a.logger.Emergency("Ошибка запуска клиента.", err)
-		os.Exit(1)
+		return err
 	}
+
+	return nil
 }
 
 // Shutdown метод завершения приложения.
