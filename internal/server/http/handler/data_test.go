@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/casnerano/seckeep/internal/pkg"
+	smodel "github.com/casnerano/seckeep/internal/pkg/model"
 	mock_handler "github.com/casnerano/seckeep/internal/server/http/handler/mock"
 	"github.com/casnerano/seckeep/internal/server/http/middleware"
 	"github.com/casnerano/seckeep/internal/server/model"
@@ -38,13 +38,13 @@ func (s *DataHandlerTestSuite) TestCreateHandler() {
 	userUUID := "ba3cfc2c-f7fd-11ed-b67e-0242ac120002"
 
 	rd := model.DataCreateRequest{
-		Type:      pkg.DataTypeText,
+		Type:      smodel.DataTypeText,
 		Value:     []byte(""),
 		Version:   time.Now(),
 		CreatedAt: time.Now(),
 	}
 
-	data := pkg.Data{
+	data := smodel.Data{
 		UserUUID:  userUUID,
 		Type:      rd.Type,
 		Value:     rd.Value,
@@ -92,9 +92,9 @@ func (s *DataHandlerTestSuite) TestUpdateHandler() {
 		Version: time.Now(),
 	}
 
-	data := pkg.Data{
+	data := smodel.Data{
 		UserUUID:  userUUID,
-		Type:      pkg.DataTypeText,
+		Type:      smodel.DataTypeText,
 		Value:     rd.Value,
 		Version:   rd.Version,
 		CreatedAt: time.Now(),
@@ -145,9 +145,9 @@ func (s *DataHandlerTestSuite) TestGetHandler() {
 	uuid := "9b92672a-f7fe-11ed-b67e-0242ac120002"
 	userUUID := "ba3cfc2c-f7fd-11ed-b67e-0242ac120002"
 
-	data := pkg.Data{
+	data := smodel.Data{
 		UserUUID:  userUUID,
-		Type:      pkg.DataTypeText,
+		Type:      smodel.DataTypeText,
 		Value:     []byte(""),
 		Version:   time.Now(),
 		CreatedAt: time.Now(),
@@ -206,17 +206,17 @@ func (s *DataHandlerTestSuite) TestGetHandler() {
 func (s *DataHandlerTestSuite) TestGetListHandler() {
 	userUUID := "ba3cfc2c-f7fd-11ed-b67e-0242ac120002"
 
-	dataList := []*pkg.Data{
+	dataList := []*smodel.Data{
 		{
 			UserUUID:  userUUID,
-			Type:      pkg.DataTypeText,
+			Type:      smodel.DataTypeText,
 			Value:     []byte("1"),
 			Version:   time.Now(),
 			CreatedAt: time.Now(),
 		},
 		{
 			UserUUID:  userUUID,
-			Type:      pkg.DataTypeCard,
+			Type:      smodel.DataTypeCard,
 			Value:     []byte("2"),
 			Version:   time.Now(),
 			CreatedAt: time.Now(),

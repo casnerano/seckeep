@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/casnerano/seckeep/internal/client/model"
-	"github.com/casnerano/seckeep/internal/pkg"
+	smodel "github.com/casnerano/seckeep/internal/pkg/model"
 )
 
 // Storage интерфейс работы с локальным хранилищем.
@@ -67,13 +67,13 @@ func (d Data) Read(index int) (model.DataTypeable, error) {
 
 	var dt model.DataTypeable
 	switch storeData.Type {
-	case pkg.DataTypeCredential:
+	case smodel.DataTypeCredential:
 		dt = &model.DataCredential{}
-	case pkg.DataTypeText:
+	case smodel.DataTypeText:
 		dt = &model.DataText{}
-	case pkg.DataTypeCard:
+	case smodel.DataTypeCard:
 		dt = &model.DataCard{}
-	case pkg.DataTypeDocument:
+	case smodel.DataTypeDocument:
 		dt = &model.DataDocument{}
 	default:
 		return nil, errors.New("unknown data type")

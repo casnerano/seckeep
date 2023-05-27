@@ -14,14 +14,14 @@ import (
 
 type AccountTestSuite struct {
 	suite.Suite
-	accountService *mock_account.MockAccountService
+	accountService *mock_account.MockService
 }
 
 func (s *AccountTestSuite) SetupSuite() {
 	ctrl := gomock.NewController(s.T())
 	defer ctrl.Finish()
 
-	s.accountService = mock_account.NewMockAccountService(ctrl)
+	s.accountService = mock_account.NewMockService(ctrl)
 }
 
 func (s *AccountTestSuite) TestAccountCmd() {

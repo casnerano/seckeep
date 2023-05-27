@@ -1,5 +1,5 @@
-// Package pkg содержит общие модели данных.
-package pkg
+// Package model содержит общие модели данных.
+package model
 
 import "time"
 

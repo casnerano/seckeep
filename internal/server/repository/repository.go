@@ -3,13 +3,16 @@ package repository
 
 //go:generate mockgen -destination=mock/repository.go -source=repository.go
 
-import "errors"
+import (
+	"errors"
+
+	smodel "github.com/casnerano/seckeep/internal/pkg/model"
+)
 
 import (
 	"context"
 	"time"
 
-	"github.com/casnerano/seckeep/internal/pkg"
 	"github.com/casnerano/seckeep/internal/server/model"
 )
 
@@ -37,16 +40,16 @@ type User interface {
 // Data интерфейс работы с записями секретных данных.
 type Data interface {
 	// Add добавляет запись.
-	Add(ctx context.Context, data pkg.Data) (*pkg.Data, error)
+	Add(ctx context.Context, data smodel.Data) (*smodel.Data, error)
 
 	// FindByUUID ищет запись по UUID.
-	FindByUUID(ctx context.Context, userUUID string, uuid string) (*pkg.Data, error)
+	FindByUUID(ctx context.Context, userUUID string, uuid string) (*smodel.Data, error)
 
 	// FindByUserUUID ищет запись по UUID пользователя.
-	FindByUserUUID(ctx context.Context, userUUID string) ([]*pkg.Data, error)
+	FindByUserUUID(ctx context.Context, userUUID string) ([]*smodel.Data, error)
 
 	// Update обновляет запись.
-	Update(ctx context.Context, userUUID string, uuid string, value []byte, version time.Time) (*pkg.Data, error)
+	Update(ctx context.Context, userUUID string, uuid string, value []byte, version time.Time) (*smodel.Data, error)
 
 	// Delete удаляет запись.
 	Delete(ctx context.Context, userUUID string, uuid string) error

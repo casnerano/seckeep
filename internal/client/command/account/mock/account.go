@@ -10,31 +10,31 @@ import (
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockAccountService is a mock of AccountService interface.
-type MockAccountService struct {
+// MockService is a mock of Service interface.
+type MockService struct {
 	ctrl     *gomock.Controller
-	recorder *MockAccountServiceMockRecorder
+	recorder *MockServiceMockRecorder
 }
 
-// MockAccountServiceMockRecorder is the mock recorder for MockAccountService.
-type MockAccountServiceMockRecorder struct {
-	mock *MockAccountService
+// MockServiceMockRecorder is the mock recorder for MockService.
+type MockServiceMockRecorder struct {
+	mock *MockService
 }
 
-// NewMockAccountService creates a new mock instance.
-func NewMockAccountService(ctrl *gomock.Controller) *MockAccountService {
-	mock := &MockAccountService{ctrl: ctrl}
-	mock.recorder = &MockAccountServiceMockRecorder{mock}
+// NewMockService creates a new mock instance.
+func NewMockService(ctrl *gomock.Controller) *MockService {
+	mock := &MockService{ctrl: ctrl}
+	mock.recorder = &MockServiceMockRecorder{mock}
 	return mock
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockAccountService) EXPECT() *MockAccountServiceMockRecorder {
+func (m *MockService) EXPECT() *MockServiceMockRecorder {
 	return m.recorder
 }
 
 // SignIn mocks base method.
-func (m *MockAccountService) SignIn(login, password string) error {
+func (m *MockService) SignIn(login, password string) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SignIn", login, password)
 	ret0, _ := ret[0].(error)
@@ -42,13 +42,13 @@ func (m *MockAccountService) SignIn(login, password string) error {
 }
 
 // SignIn indicates an expected call of SignIn.
-func (mr *MockAccountServiceMockRecorder) SignIn(login, password interface{}) *gomock.Call {
+func (mr *MockServiceMockRecorder) SignIn(login, password interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SignIn", reflect.TypeOf((*MockAccountService)(nil).SignIn), login, password)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SignIn", reflect.TypeOf((*MockService)(nil).SignIn), login, password)
 }
 
 // SignUp mocks base method.
-func (m *MockAccountService) SignUp(login, password, fullName string) error {
+func (m *MockService) SignUp(login, password, fullName string) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SignUp", login, password, fullName)
 	ret0, _ := ret[0].(error)
@@ -56,7 +56,7 @@ func (m *MockAccountService) SignUp(login, password, fullName string) error {
 }
 
 // SignUp indicates an expected call of SignUp.
-func (mr *MockAccountServiceMockRecorder) SignUp(login, password, fullName interface{}) *gomock.Call {
+func (mr *MockServiceMockRecorder) SignUp(login, password, fullName interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SignUp", reflect.TypeOf((*MockAccountService)(nil).SignUp), login, password, fullName)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SignUp", reflect.TypeOf((*MockService)(nil).SignUp), login, password, fullName)
 }

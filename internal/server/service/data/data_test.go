@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/casnerano/seckeep/internal/pkg"
+	"github.com/casnerano/seckeep/internal/pkg/model"
 	"github.com/casnerano/seckeep/internal/server/repository"
 	mock_repository "github.com/casnerano/seckeep/internal/server/repository/mock"
 	"github.com/golang/mock/gomock"
@@ -32,10 +32,10 @@ func (s *DataTestSuite) SetupSuite() {
 }
 
 func (s *DataTestSuite) TestCreate() {
-	wantData := pkg.Data{
+	wantData := model.Data{
 		UUID:      "f9bd9622-f730-11ed-b67e-0242ac120000",
 		UserUUID:  "f9bd9622-f730-11ed-b67e-0242ac120002",
-		Type:      pkg.DataTypeText,
+		Type:      model.DataTypeText,
 		Value:     []byte(""),
 		Version:   time.Now(),
 		CreatedAt: time.Now(),
@@ -49,10 +49,10 @@ func (s *DataTestSuite) TestCreate() {
 }
 
 func (s *DataTestSuite) TestFindByUUID() {
-	wantData := pkg.Data{
+	wantData := model.Data{
 		UUID:      "f9bd9622-f730-11ed-b67e-0242ac120000",
 		UserUUID:  "f9bd9622-f730-11ed-b67e-0242ac120002",
-		Type:      pkg.DataTypeText,
+		Type:      model.DataTypeText,
 		Value:     []byte(""),
 		Version:   time.Now(),
 		CreatedAt: time.Now(),
@@ -85,11 +85,11 @@ func (s *DataTestSuite) TestFindByUUID() {
 
 func (s *DataTestSuite) TestFindByUserUUID() {
 	userUUID := "f9bd9622-f730-11ed-b67e-0242ac000000"
-	wantDataList := []*pkg.Data{
+	wantDataList := []*model.Data{
 		{
 			UUID:      "f9bd9622-f730-11ed-b67e-0242ac120000",
 			UserUUID:  "f9bd9622-f730-11ed-b67e-0242ac120002",
-			Type:      pkg.DataTypeText,
+			Type:      model.DataTypeText,
 			Value:     []byte("1"),
 			Version:   time.Now(),
 			CreatedAt: time.Now(),
@@ -97,7 +97,7 @@ func (s *DataTestSuite) TestFindByUserUUID() {
 		{
 			UUID:      "f9bd9622-f730-11ed-b67e-0242ac130000",
 			UserUUID:  "f9bd9622-f730-11ed-b67e-0242ac130002",
-			Type:      pkg.DataTypeCard,
+			Type:      model.DataTypeCard,
 			Value:     []byte("2"),
 			Version:   time.Now(),
 			CreatedAt: time.Now(),
@@ -112,10 +112,10 @@ func (s *DataTestSuite) TestFindByUserUUID() {
 }
 
 func (s *DataTestSuite) TestUpdate() {
-	wantData := pkg.Data{
+	wantData := model.Data{
 		UUID:      "f9bd9622-f730-11ed-b67e-0242ac120000",
 		UserUUID:  "f9bd9622-f730-11ed-b67e-0242ac120002",
-		Type:      pkg.DataTypeText,
+		Type:      model.DataTypeText,
 		Value:     []byte(""),
 		Version:   time.Now(),
 		CreatedAt: time.Now(),

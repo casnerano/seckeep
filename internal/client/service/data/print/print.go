@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/casnerano/seckeep/internal/client/model"
-	"github.com/casnerano/seckeep/internal/pkg"
+	smodel "github.com/casnerano/seckeep/internal/pkg/model"
 )
 
 // Print структура печати данных.
@@ -24,7 +24,7 @@ func New(writer io.Writer) *Print {
 
 // GroupedList метод печает набор данных сгрупированные по типу.
 func (p *Print) GroupedList(dt map[int]model.DataTypeable) {
-	groups := make(map[pkg.DataType]map[int]model.DataTypeable)
+	groups := make(map[smodel.DataType]map[int]model.DataTypeable)
 
 	for index := range dt {
 		_, ok := groups[dt[index].Type()]
@@ -39,13 +39,13 @@ func (p *Print) GroupedList(dt map[int]model.DataTypeable) {
 
 	for key := range groups {
 		switch key {
-		case pkg.DataTypeCredential:
+		case smodel.DataTypeCredential:
 			fmt.Fprintln(p.writer, "Учетные записи:")
-		case pkg.DataTypeText:
+		case smodel.DataTypeText:
 			fmt.Fprintln(p.writer, "Текстовые данные:")
-		case pkg.DataTypeCard:
+		case smodel.DataTypeCard:
 			fmt.Fprintln(p.writer, "Данные кредитных карт:")
-		case pkg.DataTypeDocument:
+		case smodel.DataTypeDocument:
 			fmt.Fprintln(p.writer, "Документы:")
 		}
 
@@ -58,7 +58,7 @@ func (p *Print) GroupedList(dt map[int]model.DataTypeable) {
 
 		for _, index := range sortedIndex {
 			switch key {
-			case pkg.DataTypeCredential:
+			case smodel.DataTypeCredential:
 				if data, ok := groups[key][index].(*model.DataCredential); ok {
 					fmt.Fprintf(
 						p.writer,
@@ -68,7 +68,7 @@ func (p *Print) GroupedList(dt map[int]model.DataTypeable) {
 						p.JoinedMetaString(data.Meta),
 					)
 				}
-			case pkg.DataTypeText:
+			case smodel.DataTypeText:
 				if data, ok := groups[key][index].(*model.DataText); ok {
 					length := float64(len(data.Value))
 					fmt.Fprintf(
@@ -79,7 +79,7 @@ func (p *Print) GroupedList(dt map[int]model.DataTypeable) {
 						p.JoinedMetaString(data.Meta),
 					)
 				}
-			case pkg.DataTypeCard:
+			case smodel.DataTypeCard:
 				if data, ok := groups[key][index].(*model.DataCard); ok {
 					ownerValue := "—"
 					if data.Owner != "" {
@@ -95,7 +95,7 @@ func (p *Print) GroupedList(dt map[int]model.DataTypeable) {
 						p.JoinedMetaString(data.Meta),
 					)
 				}
-			case pkg.DataTypeDocument:
+			case smodel.DataTypeDocument:
 				if data, ok := groups[key][index].(*model.DataDocument); ok {
 					fmt.Fprintf(
 						p.writer,
@@ -118,7 +118,7 @@ func (p *Print) GroupedList(dt map[int]model.DataTypeable) {
 // Detail метод печает детальную информацию данных.
 func (p *Print) Detail(index int, dt model.DataTypeable) {
 	switch dt.Type() {
-	case pkg.DataTypeCredential:
+	case smodel.DataTypeCredential:
 		if data, ok := dt.(*model.DataCredential); ok {
 			fmt.Fprintf(
 				p.writer,
@@ -129,7 +129,7 @@ func (p *Print) Detail(index int, dt model.DataTypeable) {
 				p.JoinedMetaString(data.Meta),
 			)
 		}
-	case pkg.DataTypeText:
+	case smodel.DataTypeText:
 		if data, ok := dt.(*model.DataText); ok {
 			fmt.Fprintf(
 				p.writer,
@@ -139,7 +139,7 @@ func (p *Print) Detail(index int, dt model.DataTypeable) {
 				p.JoinedMetaString(data.Meta),
 			)
 		}
-	case pkg.DataTypeCard:
+	case smodel.DataTypeCard:
 		if data, ok := dt.(*model.DataCard); ok {
 			ownerValue := "—"
 			if data.Owner != "" {
@@ -156,7 +156,7 @@ func (p *Print) Detail(index int, dt model.DataTypeable) {
 				p.JoinedMetaString(data.Meta),
 			)
 		}
-	case pkg.DataTypeDocument:
+	case smodel.DataTypeDocument:
 		if data, ok := dt.(*model.DataDocument); ok {
 			fmt.Fprintf(
 				p.writer,

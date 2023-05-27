@@ -19,7 +19,7 @@ var (
 
 type DataCmdTestSuite struct {
 	suite.Suite
-	dataService   *mock_data.MockDataService
+	dataService   *mock_data.MockService
 	syncerService *mock_data.MockSyncerService
 }
 
@@ -27,7 +27,7 @@ func (s *DataCmdTestSuite) SetupSuite() {
 	ctrl := gomock.NewController(s.T())
 	defer ctrl.Finish()
 
-	s.dataService = mock_data.NewMockDataService(ctrl)
+	s.dataService = mock_data.NewMockService(ctrl)
 	s.syncerService = mock_data.NewMockSyncerService(ctrl)
 }
 

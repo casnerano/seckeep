@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/casnerano/seckeep/internal/client/model"
-	"github.com/casnerano/seckeep/internal/pkg"
+	smodel "github.com/casnerano/seckeep/internal/pkg/model"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/suite"
 )
@@ -51,7 +51,7 @@ func (s *StorageTestSuite) TestLen() {
 func (s *StorageTestSuite) TestCreate() {
 	dt := model.StoreData{
 		UUID:      "8bba5bca-f95f-11ed-be56-0242ac120002",
-		Type:      pkg.DataTypeText,
+		Type:      smodel.DataTypeText,
 		Value:     []byte{},
 		Version:   time.Now(),
 		CreatedAt: time.Now(),

@@ -9,8 +9,8 @@ import (
 	reflect "reflect"
 	time "time"
 
-	model "github.com/casnerano/seckeep/internal/server/model"
-    shared "github.com/casnerano/seckeep/internal/pkg"
+	model "github.com/casnerano/seckeep/internal/pkg/model"
+	model0 "github.com/casnerano/seckeep/internal/server/model"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -38,10 +38,10 @@ func (m *MockUser) EXPECT() *MockUserMockRecorder {
 }
 
 // Add mocks base method.
-func (m *MockUser) Add(ctx context.Context, login, password, fullName string) (*model.User, error) {
+func (m *MockUser) Add(ctx context.Context, login, password, fullName string) (*model0.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Add", ctx, login, password, fullName)
-	ret0, _ := ret[0].(*model.User)
+	ret0, _ := ret[0].(*model0.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -53,10 +53,10 @@ func (mr *MockUserMockRecorder) Add(ctx, login, password, fullName interface{}) 
 }
 
 // FindByLogin mocks base method.
-func (m *MockUser) FindByLogin(ctx context.Context, login string) (*model.User, error) {
+func (m *MockUser) FindByLogin(ctx context.Context, login string) (*model0.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindByLogin", ctx, login)
-	ret0, _ := ret[0].(*model.User)
+	ret0, _ := ret[0].(*model0.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -68,10 +68,10 @@ func (mr *MockUserMockRecorder) FindByLogin(ctx, login interface{}) *gomock.Call
 }
 
 // FindByUUID mocks base method.
-func (m *MockUser) FindByUUID(ctx context.Context, uuid string) (*model.User, error) {
+func (m *MockUser) FindByUUID(ctx context.Context, uuid string) (*model0.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindByUUID", ctx, uuid)
-	ret0, _ := ret[0].(*model.User)
+	ret0, _ := ret[0].(*model0.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -106,10 +106,10 @@ func (m *MockData) EXPECT() *MockDataMockRecorder {
 }
 
 // Add mocks base method.
-func (m *MockData) Add(ctx context.Context, data shared.Data) (*shared.Data, error) {
+func (m *MockData) Add(ctx context.Context, data model.Data) (*model.Data, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Add", ctx, data)
-	ret0, _ := ret[0].(*shared.Data)
+	ret0, _ := ret[0].(*model.Data)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -135,10 +135,10 @@ func (mr *MockDataMockRecorder) Delete(ctx, userUUID, uuid interface{}) *gomock.
 }
 
 // FindByUUID mocks base method.
-func (m *MockData) FindByUUID(ctx context.Context, userUUID, uuid string) (*shared.Data, error) {
+func (m *MockData) FindByUUID(ctx context.Context, userUUID, uuid string) (*model.Data, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindByUUID", ctx, userUUID, uuid)
-	ret0, _ := ret[0].(*shared.Data)
+	ret0, _ := ret[0].(*model.Data)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -150,10 +150,10 @@ func (mr *MockDataMockRecorder) FindByUUID(ctx, userUUID, uuid interface{}) *gom
 }
 
 // FindByUserUUID mocks base method.
-func (m *MockData) FindByUserUUID(ctx context.Context, userUUID string) ([]*shared.Data, error) {
+func (m *MockData) FindByUserUUID(ctx context.Context, userUUID string) ([]*model.Data, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindByUserUUID", ctx, userUUID)
-	ret0, _ := ret[0].([]*shared.Data)
+	ret0, _ := ret[0].([]*model.Data)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -165,10 +165,10 @@ func (mr *MockDataMockRecorder) FindByUserUUID(ctx, userUUID interface{}) *gomoc
 }
 
 // Update mocks base method.
-func (m *MockData) Update(ctx context.Context, userUUID, uuid string, value []byte, version time.Time) (*shared.Data, error) {
+func (m *MockData) Update(ctx context.Context, userUUID, uuid string, value []byte, version time.Time) (*model.Data, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", ctx, userUUID, uuid, value, version)
-	ret0, _ := ret[0].(*shared.Data)
+	ret0, _ := ret[0].(*model.Data)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

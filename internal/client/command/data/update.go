@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/casnerano/seckeep/internal/client/model"
-	"github.com/casnerano/seckeep/internal/pkg"
+	smodel "github.com/casnerano/seckeep/internal/pkg/model"
 	"github.com/casnerano/seckeep/pkg/svalid"
 	"github.com/spf13/cobra"
 )
@@ -48,7 +48,7 @@ func NewUpdateCmd(dataService Service, syncer SyncerService) *cobra.Command {
 			var updatedData model.DataTypeable
 
 			switch d.Type() {
-			case pkg.DataTypeCredential:
+			case smodel.DataTypeCredential:
 				if credential, ok := d.(*model.DataCredential); ok {
 					questions := uQuestions{
 						"login":    {title: "Логин", currentValue: credential.Login},
@@ -62,7 +62,7 @@ func NewUpdateCmd(dataService Service, syncer SyncerService) *cobra.Command {
 
 					updatedData = credential
 				}
-			case pkg.DataTypeText:
+			case smodel.DataTypeText:
 				if text, ok := d.(*model.DataText); ok {
 					questions := uQuestions{
 						"value": {title: "Значение", currentValue: text.Value},
@@ -74,7 +74,7 @@ func NewUpdateCmd(dataService Service, syncer SyncerService) *cobra.Command {
 
 					updatedData = text
 				}
-			case pkg.DataTypeCard:
+			case smodel.DataTypeCard:
 				if card, ok := d.(*model.DataCard); ok {
 					questions := uQuestions{
 						"number":     {title: "Номер карты", currentValue: card.Number},
@@ -92,7 +92,7 @@ func NewUpdateCmd(dataService Service, syncer SyncerService) *cobra.Command {
 
 					updatedData = card
 				}
-			case pkg.DataTypeDocument:
+			case smodel.DataTypeDocument:
 				if document, ok := d.(*model.DataDocument); ok {
 					questions := uQuestions{
 						"name": {title: "Название", currentValue: document.Name},

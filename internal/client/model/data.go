@@ -1,12 +1,12 @@
 package model
 
 import (
-	"github.com/casnerano/seckeep/internal/pkg"
+	"github.com/casnerano/seckeep/internal/pkg/model"
 )
 
 // DataTypeable интерфейс секретных данных.
 type DataTypeable interface {
-	Type() pkg.DataType
+	Type() model.DataType
 }
 
 // DataCredential структура учетной записи.
@@ -17,8 +17,8 @@ type DataCredential struct {
 }
 
 // Type возвращает тип структуры.
-func (c DataCredential) Type() pkg.DataType {
-	return pkg.DataTypeCredential
+func (c DataCredential) Type() model.DataType {
+	return model.DataTypeCredential
 }
 
 // DataText структура простого текста.
@@ -28,8 +28,8 @@ type DataText struct {
 }
 
 // Type возвращает тип структуры.
-func (c DataText) Type() pkg.DataType {
-	return pkg.DataTypeText
+func (c DataText) Type() model.DataType {
+	return model.DataTypeText
 }
 
 // DataCard структура банковской карты.
@@ -42,8 +42,8 @@ type DataCard struct {
 }
 
 // Type возвращает тип структуры.
-func (c DataCard) Type() pkg.DataType {
-	return pkg.DataTypeCard
+func (c DataCard) Type() model.DataType {
+	return model.DataTypeCard
 }
 
 // DataDocument структура документа.
@@ -54,6 +54,6 @@ type DataDocument struct {
 }
 
 // Type возвращает тип структуры.
-func (c DataDocument) Type() pkg.DataType {
-	return pkg.DataTypeDocument
+func (c DataDocument) Type() model.DataType {
+	return model.DataTypeDocument
 }

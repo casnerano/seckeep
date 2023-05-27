@@ -9,7 +9,7 @@ import (
 	reflect "reflect"
 	time "time"
 
-    shared "github.com/casnerano/seckeep/internal/pkg"
+	model "github.com/casnerano/seckeep/internal/pkg/model"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -37,10 +37,10 @@ func (m *MockDataService) EXPECT() *MockDataServiceMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockDataService) Create(ctx context.Context, data shared.Data) (*shared.Data, error) {
+func (m *MockDataService) Create(ctx context.Context, data model.Data) (*model.Data, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", ctx, data)
-	ret0, _ := ret[0].(*shared.Data)
+	ret0, _ := ret[0].(*model.Data)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -66,10 +66,10 @@ func (mr *MockDataServiceMockRecorder) Delete(ctx, userUUID, uuid interface{}) *
 }
 
 // FindByUUID mocks base method.
-func (m *MockDataService) FindByUUID(ctx context.Context, userUUID, uuid string) (*shared.Data, error) {
+func (m *MockDataService) FindByUUID(ctx context.Context, userUUID, uuid string) (*model.Data, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindByUUID", ctx, userUUID, uuid)
-	ret0, _ := ret[0].(*shared.Data)
+	ret0, _ := ret[0].(*model.Data)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -81,10 +81,10 @@ func (mr *MockDataServiceMockRecorder) FindByUUID(ctx, userUUID, uuid interface{
 }
 
 // FindByUserUUID mocks base method.
-func (m *MockDataService) FindByUserUUID(ctx context.Context, userUUID string) ([]*shared.Data, error) {
+func (m *MockDataService) FindByUserUUID(ctx context.Context, userUUID string) ([]*model.Data, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindByUserUUID", ctx, userUUID)
-	ret0, _ := ret[0].([]*shared.Data)
+	ret0, _ := ret[0].([]*model.Data)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -96,10 +96,10 @@ func (mr *MockDataServiceMockRecorder) FindByUserUUID(ctx, userUUID interface{})
 }
 
 // Update mocks base method.
-func (m *MockDataService) Update(ctx context.Context, userUUID, uuid string, value []byte, version time.Time) (*shared.Data, error) {
+func (m *MockDataService) Update(ctx context.Context, userUUID, uuid string, value []byte, version time.Time) (*model.Data, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", ctx, userUUID, uuid, value, version)
-	ret0, _ := ret[0].(*shared.Data)
+	ret0, _ := ret[0].(*model.Data)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

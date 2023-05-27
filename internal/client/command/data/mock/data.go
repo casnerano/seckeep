@@ -11,31 +11,31 @@ import (
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockDataService is a mock of DataService interface.
-type MockDataService struct {
+// MockService is a mock of Service interface.
+type MockService struct {
 	ctrl     *gomock.Controller
-	recorder *MockDataServiceMockRecorder
+	recorder *MockServiceMockRecorder
 }
 
-// MockDataServiceMockRecorder is the mock recorder for MockDataService.
-type MockDataServiceMockRecorder struct {
-	mock *MockDataService
+// MockServiceMockRecorder is the mock recorder for MockService.
+type MockServiceMockRecorder struct {
+	mock *MockService
 }
 
-// NewMockDataService creates a new mock instance.
-func NewMockDataService(ctrl *gomock.Controller) *MockDataService {
-	mock := &MockDataService{ctrl: ctrl}
-	mock.recorder = &MockDataServiceMockRecorder{mock}
+// NewMockService creates a new mock instance.
+func NewMockService(ctrl *gomock.Controller) *MockService {
+	mock := &MockService{ctrl: ctrl}
+	mock.recorder = &MockServiceMockRecorder{mock}
 	return mock
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockDataService) EXPECT() *MockDataServiceMockRecorder {
+func (m *MockService) EXPECT() *MockServiceMockRecorder {
 	return m.recorder
 }
 
 // Create mocks base method.
-func (m *MockDataService) Create(dt model.DataTypeable) error {
+func (m *MockService) Create(dt model.DataTypeable) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", dt)
 	ret0, _ := ret[0].(error)
@@ -43,13 +43,13 @@ func (m *MockDataService) Create(dt model.DataTypeable) error {
 }
 
 // Create indicates an expected call of Create.
-func (mr *MockDataServiceMockRecorder) Create(dt interface{}) *gomock.Call {
+func (mr *MockServiceMockRecorder) Create(dt interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockDataService)(nil).Create), dt)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockService)(nil).Create), dt)
 }
 
 // Delete mocks base method.
-func (m *MockDataService) Delete(index int) error {
+func (m *MockService) Delete(index int) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Delete", index)
 	ret0, _ := ret[0].(error)
@@ -57,13 +57,13 @@ func (m *MockDataService) Delete(index int) error {
 }
 
 // Delete indicates an expected call of Delete.
-func (mr *MockDataServiceMockRecorder) Delete(index interface{}) *gomock.Call {
+func (mr *MockServiceMockRecorder) Delete(index interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockDataService)(nil).Delete), index)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockService)(nil).Delete), index)
 }
 
 // GetList mocks base method.
-func (m *MockDataService) GetList() map[int]model.DataTypeable {
+func (m *MockService) GetList() map[int]model.DataTypeable {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetList")
 	ret0, _ := ret[0].(map[int]model.DataTypeable)
@@ -71,13 +71,13 @@ func (m *MockDataService) GetList() map[int]model.DataTypeable {
 }
 
 // GetList indicates an expected call of GetList.
-func (mr *MockDataServiceMockRecorder) GetList() *gomock.Call {
+func (mr *MockServiceMockRecorder) GetList() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetList", reflect.TypeOf((*MockDataService)(nil).GetList))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetList", reflect.TypeOf((*MockService)(nil).GetList))
 }
 
 // Read mocks base method.
-func (m *MockDataService) Read(index int) (model.DataTypeable, error) {
+func (m *MockService) Read(index int) (model.DataTypeable, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Read", index)
 	ret0, _ := ret[0].(model.DataTypeable)
@@ -86,13 +86,13 @@ func (m *MockDataService) Read(index int) (model.DataTypeable, error) {
 }
 
 // Read indicates an expected call of Read.
-func (mr *MockDataServiceMockRecorder) Read(index interface{}) *gomock.Call {
+func (mr *MockServiceMockRecorder) Read(index interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Read", reflect.TypeOf((*MockDataService)(nil).Read), index)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Read", reflect.TypeOf((*MockService)(nil).Read), index)
 }
 
 // Update mocks base method.
-func (m *MockDataService) Update(index int, dt model.DataTypeable) error {
+func (m *MockService) Update(index int, dt model.DataTypeable) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", index, dt)
 	ret0, _ := ret[0].(error)
@@ -100,9 +100,9 @@ func (m *MockDataService) Update(index int, dt model.DataTypeable) error {
 }
 
 // Update indicates an expected call of Update.
-func (mr *MockDataServiceMockRecorder) Update(index, dt interface{}) *gomock.Call {
+func (mr *MockServiceMockRecorder) Update(index, dt interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockDataService)(nil).Update), index, dt)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockService)(nil).Update), index, dt)
 }
 
 // MockSyncerService is a mock of SyncerService interface.

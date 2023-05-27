@@ -6,7 +6,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/casnerano/seckeep/internal/pkg"
+	"github.com/casnerano/seckeep/internal/pkg/model"
 	"github.com/casnerano/seckeep/internal/server/repository"
 )
 
@@ -29,12 +29,12 @@ func New(repo repository.Data) *Data {
 }
 
 // Create метод для создания.
-func (d Data) Create(ctx context.Context, data pkg.Data) (*pkg.Data, error) {
+func (d Data) Create(ctx context.Context, data model.Data) (*model.Data, error) {
 	return d.repo.Add(ctx, data)
 }
 
 // FindByUUID метод поиска по UUID.
-func (d Data) FindByUUID(ctx context.Context, userUUID, uuid string) (*pkg.Data, error) {
+func (d Data) FindByUUID(ctx context.Context, userUUID, uuid string) (*model.Data, error) {
 	data, err := d.repo.FindByUUID(ctx, userUUID, uuid)
 	if err != nil {
 		if errors.Is(err, repository.ErrNotFound) {
@@ -46,12 +46,12 @@ func (d Data) FindByUUID(ctx context.Context, userUUID, uuid string) (*pkg.Data,
 }
 
 // FindByUserUUID метод по UUID пользователя.
-func (d Data) FindByUserUUID(ctx context.Context, userUUID string) ([]*pkg.Data, error) {
+func (d Data) FindByUserUUID(ctx context.Context, userUUID string) ([]*model.Data, error) {
 	return d.repo.FindByUserUUID(ctx, userUUID)
 }
 
 // Update метод обновления.
-func (d Data) Update(ctx context.Context, userUUID, uuid string, value []byte, version time.Time) (*pkg.Data, error) {
+func (d Data) Update(ctx context.Context, userUUID, uuid string, value []byte, version time.Time) (*model.Data, error) {
 	data, err := d.repo.Update(ctx, userUUID, uuid, value, version)
 	if err != nil {
 		if errors.Is(err, repository.ErrNotFound) {
