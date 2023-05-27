@@ -4,7 +4,6 @@ package server
 
 import (
 	"context"
-	"os"
 	"os/signal"
 	"syscall"
 
@@ -81,19 +80,27 @@ func NewApp() (*App, error) {
 }
 
 // Run метод запуска приложения.
-func (a *App) Run() {
+func (a *App) Run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
 	if err := a.server.Start(ctx); err != nil {
 		a.logger.Emergency("Ошибка запуска сервера.", err)
-		os.Exit(1)
+		return err
 	}
+
+	return nil
 }
 
 // Shutdown метод завершения приложения.
 func (a *App) Shutdown() {
-	_ = a.server.Shutdown()
-	_ = a.logger.Close()
+	if err := a.server.Shutdown(); err != nil {
+		a.logger.Error("Ошибка завершения веб-сервера.", err.Error())
+	}
+
+	if err := a.logger.Close(); err != nil {
+		a.logger.Error("Не удалось завершить логгер.", err.Error())
+	}
+
 	a.pgxpool.Close()
 }

@@ -1,13 +1,19 @@
 package main
 
-import "github.com/casnerano/seckeep/internal/server"
+import (
+	"log"
+
+	"github.com/casnerano/seckeep/internal/server"
+)
 
 func main() {
 	app, err := server.NewApp()
 	if err != nil {
-		panic(err.Error())
+		log.Fatal("Ошибка инициализации приложения.", err.Error())
 	}
 	defer app.Shutdown()
 
-	app.Run()
+	if err = app.Run(); err != nil {
+		log.Fatal("Ошибка старта приложения.", err.Error())
+	}
 }
