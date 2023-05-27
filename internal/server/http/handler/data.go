@@ -47,16 +47,17 @@ func (d Data) Create(rd model.DataCreateRequest, w http.ResponseWriter, r *http.
 		return nil, http.StatusUnauthorized
 	}
 
-	result, err := d.service.Create(r.Context(), smodel.Data{
+	dt := smodel.Data{
 		UserUUID:  userUUID,
 		Type:      rd.Type,
 		Value:     rd.Value,
 		Version:   rd.Version,
 		CreatedAt: rd.CreatedAt,
-	})
+	}
+	result, err := d.service.Create(r.Context(), dt)
 
 	if err != nil {
-		d.logger.Error("Ошибка при добавлении записи.", err.Error())
+		d.logger.Error("Ошибка при добавлении записи.", err.Error(), dt)
 		return nil, http.StatusInternalServerError
 	}
 
@@ -78,7 +79,18 @@ func (d Data) Update(rd model.DataUpdateRequest, w http.ResponseWriter, r *http.
 
 	result, err := d.service.Update(r.Context(), userUUID, uuid, rd.Value, rd.Version)
 	if err != nil {
-		d.logger.Error("Ошибка при обновлении записи.", err.Error())
+		errCtx := struct {
+			UserUUID string
+			UUID     string
+			Value    []byte
+			Version  time.Time
+		}{
+			UserUUID: userUUID,
+			UUID:     uuid,
+			Value:    rd.Value,
+			Version:  rd.Version,
+		}
+		d.logger.Error("Ошибка при обновлении записи.", err.Error(), errCtx)
 		return nil, http.StatusInternalServerError
 	}
 
@@ -104,7 +116,15 @@ func (d Data) Get(w http.ResponseWriter, r *http.Request) (any, int) {
 			return nil, http.StatusNotFound
 		}
 
-		d.logger.Error("Ошибка при получении записи.", err.Error())
+		errCtx := struct {
+			UserUUID string
+			UUID     string
+		}{
+			UserUUID: userUUID,
+			UUID:     uuid,
+		}
+
+		d.logger.Error("Ошибка при получении записи.", err.Error(), errCtx)
 		return nil, http.StatusInternalServerError
 	}
 
@@ -121,7 +141,12 @@ func (d Data) GetList(w http.ResponseWriter, r *http.Request) (any, int) {
 
 	result, err := d.service.FindByUserUUID(r.Context(), userUUID)
 	if err != nil {
-		d.logger.Error("Ошибка при получении списка записей.", err.Error())
+		errCtx := struct {
+			UserUUID string
+		}{
+			UserUUID: userUUID,
+		}
+		d.logger.Error("Ошибка при получении списка записей.", err.Error(), errCtx)
 		return nil, http.StatusInternalServerError
 	}
 
@@ -147,7 +172,14 @@ func (d Data) Delete(w http.ResponseWriter, r *http.Request) (any, int) {
 			return nil, http.StatusNotFound
 		}
 
-		d.logger.Error("Ошибка при удалении записи.", err.Error())
+		errCtx := struct {
+			UserUUID string
+			UUID     string
+		}{
+			UserUUID: userUUID,
+			UUID:     uuid,
+		}
+		d.logger.Error("Ошибка при удалении записи.", err.Error(), errCtx)
 		return nil, http.StatusInternalServerError
 	}
 
