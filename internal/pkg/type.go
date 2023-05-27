@@ -1,5 +1,5 @@
-// Package shared содержит общие модели данных.
-package shared
+// Package pkg содержит общие модели данных.
+package pkg
 
 import "time"
 

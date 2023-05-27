@@ -9,7 +9,7 @@ import (
 	reflect "reflect"
 	time "time"
 
-	shared "github.com/casnerano/seckeep/internal/shared"
+    shared "github.com/casnerano/seckeep/internal/pkg"
 	gomock "github.com/golang/mock/gomock"
 )
 

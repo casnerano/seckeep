@@ -9,8 +9,8 @@ import (
 	"context"
 	"time"
 
+	"github.com/casnerano/seckeep/internal/pkg"
 	"github.com/casnerano/seckeep/internal/server/model"
-	"github.com/casnerano/seckeep/internal/shared"
 )
 
 // Общие ошибки при работы БД.
@@ -37,16 +37,16 @@ type User interface {
 // Data интерфейс работы с записями секретных данных.
 type Data interface {
 	// Add добавляет запись.
-	Add(ctx context.Context, data shared.Data) (*shared.Data, error)
+	Add(ctx context.Context, data pkg.Data) (*pkg.Data, error)
 
 	// FindByUUID ищет запись по UUID.
-	FindByUUID(ctx context.Context, userUUID string, uuid string) (*shared.Data, error)
+	FindByUUID(ctx context.Context, userUUID string, uuid string) (*pkg.Data, error)
 
 	// FindByUserUUID ищет запись по UUID пользователя.
-	FindByUserUUID(ctx context.Context, userUUID string) ([]*shared.Data, error)
+	FindByUserUUID(ctx context.Context, userUUID string) ([]*pkg.Data, error)
 
 	// Update обновляет запись.
-	Update(ctx context.Context, userUUID string, uuid string, value []byte, version time.Time) (*shared.Data, error)
+	Update(ctx context.Context, userUUID string, uuid string, value []byte, version time.Time) (*pkg.Data, error)
 
 	// Delete удаляет запись.
 	Delete(ctx context.Context, userUUID string, uuid string) error

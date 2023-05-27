@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
+	"github.com/casnerano/seckeep/internal/pkg"
 	"github.com/casnerano/seckeep/internal/server/repository"
-	"github.com/casnerano/seckeep/internal/shared"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -22,7 +22,7 @@ func NewDataRepository(pgxpool *pgxpool.Pool) repository.Data {
 }
 
 // Add добавляет запись.
-func (d DataRepository) Add(ctx context.Context, data shared.Data) (*shared.Data, error) {
+func (d DataRepository) Add(ctx context.Context, data pkg.Data) (*pkg.Data, error) {
 	err := d.pgxpool.QueryRow(
 		ctx,
 		"insert into data(user_uuid, type, value, created_at, version) values($1, $2, $3, $4, $5) returning uuid",
@@ -43,8 +43,8 @@ func (d DataRepository) Add(ctx context.Context, data shared.Data) (*shared.Data
 }
 
 // FindByUUID ищет запись по UUID.
-func (d DataRepository) FindByUUID(ctx context.Context, userUUID string, uuid string) (*shared.Data, error) {
-	data := shared.Data{UUID: uuid}
+func (d DataRepository) FindByUUID(ctx context.Context, userUUID string, uuid string) (*pkg.Data, error) {
+	data := pkg.Data{UUID: uuid}
 	err := d.pgxpool.QueryRow(
 		ctx,
 		"select user_uuid, type, value, created_at, version from data where user_uuid = $1 and uuid = $2",
@@ -69,8 +69,8 @@ func (d DataRepository) FindByUUID(ctx context.Context, userUUID string, uuid st
 }
 
 // FindByUserUUID ищет запись по UUID пользователя.
-func (d DataRepository) FindByUserUUID(ctx context.Context, userUUID string) ([]*shared.Data, error) {
-	data := make([]*shared.Data, 0)
+func (d DataRepository) FindByUserUUID(ctx context.Context, userUUID string) ([]*pkg.Data, error) {
+	data := make([]*pkg.Data, 0)
 
 	rows, err := d.pgxpool.Query(
 		ctx,
@@ -85,7 +85,7 @@ func (d DataRepository) FindByUserUUID(ctx context.Context, userUUID string) ([]
 	defer rows.Close()
 
 	for rows.Next() {
-		datum := &shared.Data{}
+		datum := &pkg.Data{}
 		err = rows.Scan(
 			&datum.UUID,
 			&datum.Type,
@@ -102,8 +102,8 @@ func (d DataRepository) FindByUserUUID(ctx context.Context, userUUID string) ([]
 }
 
 // Update обновляет запись.
-func (d DataRepository) Update(ctx context.Context, userUUID string, uuid string, value []byte, version time.Time) (*shared.Data, error) {
-	data := &shared.Data{
+func (d DataRepository) Update(ctx context.Context, userUUID string, uuid string, value []byte, version time.Time) (*pkg.Data, error) {
+	data := &pkg.Data{
 		UUID:    uuid,
 		Value:   value,
 		Version: version,

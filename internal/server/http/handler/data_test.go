@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
+	"github.com/casnerano/seckeep/internal/pkg"
 	mock_handler "github.com/casnerano/seckeep/internal/server/http/handler/mock"
 	"github.com/casnerano/seckeep/internal/server/http/middleware"
 	"github.com/casnerano/seckeep/internal/server/model"
 	dataService "github.com/casnerano/seckeep/internal/server/service/data"
-	"github.com/casnerano/seckeep/internal/shared"
 	"github.com/casnerano/seckeep/pkg/log"
 	"github.com/go-chi/chi/v5"
 	"github.com/golang/mock/gomock"
@@ -38,13 +38,13 @@ func (s *DataHandlerTestSuite) TestCreateHandler() {
 	userUUID := "ba3cfc2c-f7fd-11ed-b67e-0242ac120002"
 
 	rd := model.DataCreateRequest{
-		Type:      shared.DataTypeText,
+		Type:      pkg.DataTypeText,
 		Value:     []byte(""),
 		Version:   time.Now(),
 		CreatedAt: time.Now(),
 	}
 
-	data := shared.Data{
+	data := pkg.Data{
 		UserUUID:  userUUID,
 		Type:      rd.Type,
 		Value:     rd.Value,
@@ -92,9 +92,9 @@ func (s *DataHandlerTestSuite) TestUpdateHandler() {
 		Version: time.Now(),
 	}
 
-	data := shared.Data{
+	data := pkg.Data{
 		UserUUID:  userUUID,
-		Type:      shared.DataTypeText,
+		Type:      pkg.DataTypeText,
 		Value:     rd.Value,
 		Version:   rd.Version,
 		CreatedAt: time.Now(),
@@ -145,9 +145,9 @@ func (s *DataHandlerTestSuite) TestGetHandler() {
 	uuid := "9b92672a-f7fe-11ed-b67e-0242ac120002"
 	userUUID := "ba3cfc2c-f7fd-11ed-b67e-0242ac120002"
 
-	data := shared.Data{
+	data := pkg.Data{
 		UserUUID:  userUUID,
-		Type:      shared.DataTypeText,
+		Type:      pkg.DataTypeText,
 		Value:     []byte(""),
 		Version:   time.Now(),
 		CreatedAt: time.Now(),
@@ -206,17 +206,17 @@ func (s *DataHandlerTestSuite) TestGetHandler() {
 func (s *DataHandlerTestSuite) TestGetListHandler() {
 	userUUID := "ba3cfc2c-f7fd-11ed-b67e-0242ac120002"
 
-	dataList := []*shared.Data{
+	dataList := []*pkg.Data{
 		{
 			UserUUID:  userUUID,
-			Type:      shared.DataTypeText,
+			Type:      pkg.DataTypeText,
 			Value:     []byte("1"),
 			Version:   time.Now(),
 			CreatedAt: time.Now(),
 		},
 		{
 			UserUUID:  userUUID,
-			Type:      shared.DataTypeCard,
+			Type:      pkg.DataTypeCard,
 			Value:     []byte("2"),
 			Version:   time.Now(),
 			CreatedAt: time.Now(),

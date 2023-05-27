@@ -10,7 +10,7 @@ import (
 	time "time"
 
 	model "github.com/casnerano/seckeep/internal/server/model"
-	shared "github.com/casnerano/seckeep/internal/shared"
+    shared "github.com/casnerano/seckeep/internal/pkg"
 	gomock "github.com/golang/mock/gomock"
 )
 

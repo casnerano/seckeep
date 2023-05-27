@@ -6,7 +6,7 @@ import (
 
 	"github.com/casnerano/seckeep/internal/client/model"
 	mock_data "github.com/casnerano/seckeep/internal/client/service/data/mock"
-	"github.com/casnerano/seckeep/internal/shared"
+	"github.com/casnerano/seckeep/internal/pkg"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/suite"
 )
@@ -65,7 +65,7 @@ func (s *DataTestSuite) TestRead() {
 	index := 1
 	storeData := model.StoreData{
 		UUID:  "c9d5577e-f8cf-11ed-be56-0242ac120002",
-		Type:  shared.DataTypeText,
+		Type:  pkg.DataTypeText,
 		Value: []byte("Example text"),
 	}
 
@@ -105,7 +105,7 @@ func (s *DataTestSuite) TestRead() {
 	})
 
 	s.Run("Incorrect decrypt", func() {
-		storeData.Type = shared.DataTypeText
+		storeData.Type = pkg.DataTypeText
 		s.storage.EXPECT().Read(index).Return(&storeData, nil)
 		s.encryptor.EXPECT().Decrypt(storeData.Value, &model.DataText{}).Return(errUnknown)
 		gotDt, err := s.dataSerice.Read(index)
@@ -122,7 +122,7 @@ func (s *DataTestSuite) TestGetList() {
 	}
 
 	s.storage.EXPECT().GetList().Return(dtItems)
-	s.storage.EXPECT().Read(gomock.Any()).Return(&model.StoreData{Type: shared.DataTypeText}, nil)
+	s.storage.EXPECT().Read(gomock.Any()).Return(&model.StoreData{Type: pkg.DataTypeText}, nil)
 	s.encryptor.EXPECT().Decrypt(gomock.Any(), &model.DataText{}).Return(nil)
 	result := s.dataSerice.GetList()
 

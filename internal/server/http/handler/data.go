@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/casnerano/seckeep/internal/pkg"
 	"github.com/casnerano/seckeep/internal/server/model"
-	"github.com/casnerano/seckeep/internal/shared"
 	"github.com/go-chi/chi/v5"
 
 	"github.com/casnerano/seckeep/internal/server/http/middleware"
@@ -19,10 +19,10 @@ import (
 
 // DataService интерфейс сервиса взаимодействия с секретными данными.
 type DataService interface {
-	Create(ctx context.Context, data shared.Data) (*shared.Data, error)
-	FindByUUID(ctx context.Context, userUUID, uuid string) (*shared.Data, error)
-	FindByUserUUID(ctx context.Context, userUUID string) ([]*shared.Data, error)
-	Update(ctx context.Context, userUUID, uuid string, value []byte, version time.Time) (*shared.Data, error)
+	Create(ctx context.Context, data pkg.Data) (*pkg.Data, error)
+	FindByUUID(ctx context.Context, userUUID, uuid string) (*pkg.Data, error)
+	FindByUserUUID(ctx context.Context, userUUID string) ([]*pkg.Data, error)
+	Update(ctx context.Context, userUUID, uuid string, value []byte, version time.Time) (*pkg.Data, error)
 	Delete(ctx context.Context, userUUID, uuid string) error
 }
 
@@ -47,7 +47,7 @@ func (d Data) Create(rd model.DataCreateRequest, w http.ResponseWriter, r *http.
 		return nil, http.StatusUnauthorized
 	}
 
-	result, err := d.service.Create(r.Context(), shared.Data{
+	result, err := d.service.Create(r.Context(), pkg.Data{
 		UserUUID:  userUUID,
 		Type:      rd.Type,
 		Value:     rd.Value,

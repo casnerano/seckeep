@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/casnerano/seckeep/internal/client/model"
-	"github.com/casnerano/seckeep/internal/shared"
+	"github.com/casnerano/seckeep/internal/pkg"
 )
 
 // Storage интерфейс работы с локальным хранилищем.
@@ -67,13 +67,13 @@ func (d Data) Read(index int) (model.DataTypeable, error) {
 
 	var dt model.DataTypeable
 	switch storeData.Type {
-	case shared.DataTypeCredential:
+	case pkg.DataTypeCredential:
 		dt = &model.DataCredential{}
-	case shared.DataTypeText:
+	case pkg.DataTypeText:
 		dt = &model.DataText{}
-	case shared.DataTypeCard:
+	case pkg.DataTypeCard:
 		dt = &model.DataCard{}
-	case shared.DataTypeDocument:
+	case pkg.DataTypeDocument:
 		dt = &model.DataDocument{}
 	default:
 		return nil, errors.New("unknown data type")
