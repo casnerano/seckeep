@@ -3,6 +3,7 @@
 package client
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/casnerano/seckeep/internal/client/command"
@@ -71,6 +72,11 @@ func (a *App) Run() {
 
 // Shutdown метод завершения приложения.
 func (a *App) Shutdown() {
-	_ = a.dataStorage.Close()
-	_ = a.logger.Close()
+	if err := a.dataStorage.Close(); err != nil {
+		a.logger.Error("Не удалось закрыть локальное хранилище.", err.Error())
+	}
+
+	if err := a.logger.Close(); err != nil {
+		fmt.Println("Не удалось завершить логгер.", err.Error())
+	}
 }
