@@ -1,0 +1,5 @@
+app:
+  encryptor:
+    secret: "c4ca4238a0b923820dcc509a6f75849b"
+server:
+  url: http://127.0.0.1:8081

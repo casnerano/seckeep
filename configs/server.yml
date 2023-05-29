@@ -1,0 +1,8 @@
+app:
+  authenticator:
+    secret: "c4ca4238a0b923820dcc509a6f75849b"
+server:
+  addr: 127.0.0.1:8081
+  enable_https: true
+database:
+  dsn: "postgres://user:password@localhost/seckeep?sslmode=disable"
